@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string("file_name")->nullable();
 			$table->string("file_path")->nullable();
-            $table->string('email')->unique();
+            $table->string('email',191)->unique();
             $table->longText('self_introduct')->nullable();
             $table->string('user_style')->nullable();
             $table->timestamp('email_verified_at')->nullable();
