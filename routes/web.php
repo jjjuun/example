@@ -84,12 +84,62 @@ Route::post('/api', [App\Http\Controllers\ApiController::class, 'search'])->name
 // 購入
 Route::get('/strategy_buy', [App\Http\Controllers\StrategyBuyController::class, 'strategyBuyShow'])->name('strategy_buy_show')->middleware("auth");
 Route::post('/strategy_buy', [App\Http\Controllers\StrategyBuyController::class, 'strategyBuyPost'])->name('strategy_buy_post')->middleware("auth");
+Route::get('/strategy_buy_confirm', [App\Http\Controllers\StrategyBuyController::class, 'strategyBuyConfirm'])->name('strategy_buy_confirm')->middleware("auth");
+Route::post('/strategy_buy_confirm', [App\Http\Controllers\StrategyBuyController::class, 'strategyBuySend'])->name('strategy_buy_send')->middleware("auth");
+
+// // ローン計算
+Route::get('/strategy_buy_confirm', [App\Http\Controllers\StrategyBuyController::class, 'strategyBuyCalcLoan'])->name('strategy_buy_calc_loan')->middleware("auth");
+
 // 保有
 Route::get('/strategy_possess', [App\Http\Controllers\StrategyPossessController::class, 'strategyPossessShow'])->name('strategy_posess_show')->middleware("auth");
 Route::post('/strategy_possess', [App\Http\Controllers\StrategyPossessController::class, 'strategyPossessPost'])->name('strategy_posess_post')->middleware("auth");
-// 売却
-Route::get('/strategy_sell', [App\Http\Controllers\StrategySellController::class, 'strategySellShow'])->name('strategy_sell')->middleware("auth");
+Route::get('/strategy_possess_confirm', [App\Http\Controllers\StrategyPossessController::class, 'strategyPossessConfirm'])->name('strategy_possess_confirm')->middleware("auth");
+Route::post('/strategy_possess_confirm', [App\Http\Controllers\StrategyPossessController::class, 'strategyPossessSend'])->name('strategy_possess_send')->middleware("auth");
 
+// 売却
+Route::get('/strategy_sell', [App\Http\Controllers\StrategySellController::class, 'strategySellShow'])->name('strategy_sell_show')->middleware("auth");
+Route::post('/strategy_sell', [App\Http\Controllers\StrategySellController::class, 'strategySellPost'])->name('strategy_sell_post')->middleware("auth");
+Route::get('/strategy_sell_confirm', [App\Http\Controllers\StrategySellController::class, 'strategySellConfirm'])->name('strategy_sell_confirm')->middleware("auth");
+Route::post('/strategy_sell_confirm', [App\Http\Controllers\StrategySellController::class, 'strategySellSend'])->name('strategy_sell_send')->middleware("auth");
+
+/**
+ * 上記、購入、保有、売却で入力したフォームの内容をStrategyOutputControllerで処理する
+ */
+// フォーム入力前の内容をブレードファイルに表示する
+Route::get('/strategy_output', [App\Http\Controllers\StrategyOutputController::class, 'strategyOutputShow'])
+    ->name('strategy_output_show')->middleware("auth");
+
+// マイ物件を取得する
+Route::get('/strategy_output', [App\Http\Controllers\StrategyOutputController::class, 'strategyOutputGetMyestate'])
+    ->name('strategy_output_get_myestate')->middleware("auth");
+
+// ローン返済期間、年齢などを設定する
+Route::get('/strategy_output', [App\Http\Controllers\StrategyOutputController::class, 'strategyOutputSetTime'])
+    ->name('strategy_output_set_time')->middleware("auth");
+
+// 物件購入における収支計算を実施する
+Route::get('/strategy_output', [App\Http\Controllers\StrategyOutputController::class, 'strategyOutputBuyCalc'])
+    ->name('strategy_output_buy_calc')->middleware("auth");
+
+// 減価償却費を計算する
+Route::get('/strategy_output', [App\Http\Controllers\StrategyOutputController::class, 'strategyOutputPossessCalcDepreciation'])
+    ->name('strategy_output_possess_calc_depreciation')->middleware("auth");
+
+// 物件保有による不動産所得を計算する
+Route::get('/strategy_output', [App\Http\Controllers\StrategyOutputController::class, 'strategyOutputPossessCalcIncome'])
+    ->name('strategy_output_possess_calc_income')->middleware("auth");
+
+// // 物件保有による不動産所得税・住民税を計算する
+// Route::get('/strategy_output', [App\Http\Controllers\StrategyOutputController::class, 'strategyOutputPossessCalcIncomeResidentTax'])
+//     ->name('strategy_output_possess_calc_income_resident_tax')->middleware("auth");
+
+// // 物件保有における収支計算を実施する（ほかのクラス、関数で作成したcalc_arraysをとりまとめ、ブレードファイルに出力している。）
+// Route::get('/strategy_output', [App\Http\Controllers\StrategyOutputController::class, 'strategyOutputPossessCalc'])
+//     ->name('strategy_output_possess_calc')->middleware("auth");
+
+
+// Route::get('/strategy_output', [App\Http\Controllers\StrategyOutputController::class, 'strategyOutputSellCalc'])
+//     ->name('strategy_output_sell_calc')->middleware("auth");
 
 /*
 【初期設定Viewファイル】

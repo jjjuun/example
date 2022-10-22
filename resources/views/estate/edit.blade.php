@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include("common.content-header")
+
 <div class="card mb-5">
     <div class="card-header">マイ物件編集
         {{-- 削除 --}}
@@ -53,9 +55,9 @@
                     <td>{{$edit_estate["BuyPrice"]}}</td>
                     <td>{{$edit_estate["property_income"]}}</td> {{-- 家賃収入 --}}
                     <td>{{$edit_estate["property_management_cost"]}}</td> {{-- 管理費 --}}
-                    <td>{{$edit_estate["perperty_maintenance_cost"]}}</td> {{-- 修繕積立費 --}}
-                    <td>{{$edit_estate["KARI_PROPERTY_TAX"]}}</td> {{-- 固定資産税 --}}
-                    <td>{{$edit_estate["KARI_CITY_PLAN_TAX"]}}</td> {{-- 都市計画税 --}}
+                    <td>{{$edit_estate["property_maintenance_cost"]}}</td> {{-- 修繕積立費 --}}
+                    <td>{{$edit_estate["property_tax"]}}</td> {{-- 固定資産税 --}}
+                    <td>{{$edit_estate["city_plan_tax"]}}</td> {{-- 都市計画税 --}}
                     <td>{{$edit_estate["status"]}}</td>
                     <td>{{$edit_estate["detail"]}}</td>
                 </tr>

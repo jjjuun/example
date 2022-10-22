@@ -4,7 +4,7 @@
 
 @include("common.content-header")
 
-    <form method="get" action="{{ url("/strategy_buy") }}">
+    <form method="post" action="{{ url("/strategy_sell") }}">
         @csrf
 
         {{-- フォームの各nameのつけ方 --}}

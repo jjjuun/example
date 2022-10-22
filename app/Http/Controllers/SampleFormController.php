@@ -29,13 +29,7 @@ class SampleFormController extends Controller
         // 【20220906】▼▼▼登録フォームに画像を追加▼▼▼
         // $inputはimage以外のキーを取得する
         // とりあえず、sessionの対象外とするため、ここでは$upload_image変数を指定しない
-        $input = $request->except("image");
-
-        // 以下、オリジナル
-        // $input = $request->all();
-        // 【20220906】
-        
-
+        $input = $request->except("image");//->配列
         
         // バリデーション設定
         $request->validate([
@@ -51,6 +45,8 @@ class SampleFormController extends Controller
 
         //セッションに書き込む（key名：form_input）
         $request->session()->put("form_input", $input);
+        // dd("session",$request->session());//attributeの中にある。
+        // dd("session->get",$request->session()->get("form_input_buy"));
 
         $image = $request->file("image");
         // dd($image);
@@ -67,6 +63,8 @@ class SampleFormController extends Controller
                 ]);
             }
         }
+
+        // dd("session",$request->session());//フォームの入力内容（画像込み）がattributeの中に格納されている。
 
 
         // 入力後のリダイレクト先を設定

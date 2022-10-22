@@ -11,13 +11,11 @@
         <form method="POST" action="{{ route('estate.create.check') }}">
             @csrf
 
-            {{-- 物件名 --}}
             <label>物件名</label>
             <div class="form-group mb-3">
                 <input type="text" name="EstateName" class="form-control">{{ old('estateName', @$input["estateName"]) }}
             </div>
 
-            {{-- 物件種目（例：中古マンション等） --}}
             <label>物件種目</label>
             <div class="form-group mb-3">
                 <select name="Type">
@@ -29,7 +27,6 @@
                 </select>
             </div>
 
-            {{-- 都道府県名 --}}
             <label>都道府県</label>
             <div class="form-group mb-3">
                 <select name="Prefecture">
@@ -41,7 +38,6 @@
                 </select>
             </div>
 
-            {{-- 市区町村 --}}
             <label>市区町村</label>
             <div class="form-group mb-3">
                 <select name="Municipality">
@@ -53,17 +49,15 @@
                 </select>
             </div>
 
-            {{-- 地区名 --}}
             {{-- 市区町村のように一覧になっていないため、２３区の町名を調べて自分で作成する必要がある？ --}}
-            {{-- 一旦、checkboxではなく、textフォームで進める --}}
+            {{-- textフォームでリリースする --}}
             <div>
                 <label>地区名</label>
                 <div class="form-group mb-3">
-                    <input type="text" name="DistrictName" class="form-control">{{ old('DistrictName', @$input["DistrictName"]) }}
+                    <input type="text" name="DistrictName" class="form-control"{{ old('DistrictName', @$input["DistrictName"]) }}>
                 </div>
             </div>
 
-            {{-- 間取り --}}
             <label>間取り</label>
             <div class="form-group mb-3">
                 <select name="FloorPlan">
@@ -75,35 +69,70 @@
                 </select>
             </div>
 
-            {{-- 築年 --}}
-            {{-- APIは元号になっている、西暦にすべきか？ --}}
+            <label>建物の構造</label>
+            <div class="form-group mb-3">
+                <select name="Structure">
+                    <option value="">選択してください</option>
+                    <option value="木造">木造</option>
+                    <option value="鉄骨造_one">鉄骨（鉄骨の厚み:3～4mm）</option>
+                    <option value="鉄骨造_two">鉄骨（鉄骨の厚み:4mm以上）</option>
+                    <option value="ＲＣ">ＲＣ</option>
+                    <option value="ＳＲＣ">ＳＲＣ</option>
+                </select>
+            </div>
+
             <label>築年</label>
             <div class="form-group mb-3">
-                <input type="text" name="BuildingYear" class="form-control" placeholder="平成14年">{{ old('BuildingYear', @$input["BuildingYear"]) }}
+                <input type="number" name="BuildingYear" class="form-control" placeholder="2022" {{ old('BuildingYear', @$input["BuildingYear"]) }}>
             </div>
 
-            {{-- 購入価格 --}}
+            <label>取得年</label>
+            <div class="form-group mb-3">
+                <input type="number" name="GetYear" class="form-control" placeholder="2022" {{ old('GetYear', @$input["GetYear"]) }}>
+            </div>
+
             <label>購入価格（万円）</label>
             <div class="form-group mb-3">
-                <input type="number" name="BuyPrice" class="form-control" placeholder="">{{ old('BuyPrice', @$input["BuyPrice"]) }}
+                <input type="number" name="BuyPrice" class="form-control" placeholder="" {{ old('BuyPrice', @$input["BuyPrice"]) }}>
             </div>
 
-            {{-- 家賃収入 --}}
             <label>家賃収入（円/月）</label>
             <div class="form-group mb-3">
-                <input type="number" name="property_income" class="form-control" placeholder="">{{ old('property_income', @$input["property_income"]) }}
+                <input type="number" name="property_income" class="form-control" placeholder="" {{ old('property_income', @$input["property_income"]) }}>
             </div>
 
-            {{-- 管理費 --}}
             <label>管理費（円/月）</label>
             <div class="form-group mb-3">
-                <input type="number" name="property_management_cost" class="form-control" placeholder="">{{ old('property_management_cost', @$input["property_management_cost"]) }}
+                <input type="number" name="property_management_cost" class="form-control" placeholder="" {{ old('property_management_cost', @$input["property_management_cost"]) }}>
             </div>
 
-            {{-- 修繕積立費 --}}
             <label>修繕積立費（円/月）</label>
             <div class="form-group mb-3">
-                <input type="number" name="perperty_maintenance_cost" class="form-control" placeholder="">{{ old('perperty_maintenance_cost', @$input["perperty_maintenance_cost"]) }}
+                <input type="number" name="property_maintenance_cost" class="form-control" placeholder="" {{ old('property_maintenance_cost', @$input["property_maintenance_cost"]) }}>
+            </div>
+
+            <label>固定資産税（円/年）</label>
+            <div class="form-group mb-3">
+                <input type="number" name="property_tax" class="form-control" placeholder="" {{ old('property_tax', @$input["property_tax"]) }}>
+                <p>固定資産税は物件購入前に物件営業の人に確認してみましょう。</p>
+            </div>
+
+            <label>都市計画税（円/年）</label>
+            <div class="form-group mb-3">
+                <input type="number" name="city_plan_tax" class="form-control" placeholder="" {{ old('city_plan_tax', @$input["city_plan_tax"]) }}>
+                <p>固定資産税は物件購入前に物件営業の人に確認してみましょう。</p>
+            </div>
+
+            <label>固定資産標準額（土地）（円）</label>
+            <div class="form-group mb-3">
+                <input type="number" name="property_std_land_price" class="form-control" placeholder="" {{ old('property_std_land_price', @$input["property_std_land_price"]) }}>
+                <p>固定資産税は物件購入前に物件営業の人に確認してみましょう。</p>
+            </div>
+
+            <label>固定資産標準額（家屋）（円）</label>
+            <div class="form-group mb-3">
+                <input type="number" name="property_std_house_price" class="form-control" placeholder="" {{ old('property_std_house_price', @$input["property_std_house_price"]) }}>
+                <p>固定資産税は物件購入前に物件営業の人に確認してみましょう。</p>
             </div>
             
             <button type="submit" class="btn btn-primary btn-lg">保存</button>

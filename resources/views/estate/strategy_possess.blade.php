@@ -25,7 +25,7 @@
                             <label>家賃収入（円/月）</label>
                             {{-- 経年変化を表現したい --}}
                             <div>
-                                <input type="text" name="property_income" value="150000">
+                                <input type="text" name="property_income" value="{{ old("property_income", "150000") }}">
                             </div>
                         </div>
 
@@ -33,7 +33,7 @@
                             <label>還付金（円/年）</label>
                             {{-- 経年変化を表現したい --}}
                             <div>
-                                <input type="text" name="refund" value="100000">
+                                <input type="text" name="refund" value="{{ old("refund", "100000") }}">
                             </div>
                         </div>
                     </div>
@@ -45,92 +45,38 @@
                         <div class="card mb-3">
                             <div class="card-header mb-3">物件保有</div>
                             <div class="mb-3">
-                                <label>管理費（円/月）</label>
-                                {{-- 経年変化を表現したい --}}
+                                <label>物件管理による経費（円）</label>
                                 <div>
-                                    <input type="text" name="property_management_cost" value="10000">
+                                    <input type="text" name="property_possess_expense" value="{{ old("property_possess_expense", "10000") }}">
                                 </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label>修繕積立費（円/月）</label>
-                                {{-- 経年変化を表現したい --}}
-                                <div>
-                                    <input type="text" name="perperty_maintenance_cost" value="10000">
-                                </div>
+                                <p>ローン金利、管理費、修繕費、火災保険料、地震保険料、固定資産税、都市計画税、減価償却費は別途入力するため不要です。</p>
+                                <p>上記以外の家賃収入を得るために使った交際費、交通費などの年間総額を入力してください。</p>
                             </div>
                         </div>
 
-                        <div class="card mb-3">
-                            <div class="card-header mb-3">ローン</div>
-                            <div class="mb-3">
-                                <label>（仮）月間ローン返済額（円/月）</label>
-                                {{-- もろもろの条件を入れてアプリで計算できるようにする --}}
-                                <div>
-                                    <input type="text" name="KARI_LOAN" value="100000">
-                                </div>
-                            </div>
-                        </div>
+                        {{-- 固定資産税、都市計画税はマイ物件から取得、所得税、住民税はControllerで計算しているため入力フォームを設定しない --}}
 
                         <div class="card mb-3">
-                            <div class="card-header mb-3">税</div>
-                            {{-- 税はマイ物件から概算は算出できるので、マイ物件（estatesテーブル）に格納する --}}
-                            {{-- 本フォームのvalueには、estatesテーブルから値を取得する --}}
-
-                            <div class="mb-3">
-                                <label>（仮）固定資産税（円/年）</label>
-                                {{-- もろもろの条件を入れてアプリで計算できるようにする --}}
-                                <div>
-                                    <input type="text" name="KARI_PROPERTY_TAX" value="100000">
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label>（仮）都市計画税（円/年）</label>
-                                {{-- もろもろの条件を入れてアプリで計算できるようにする --}}
-                                <div>
-                                    <input type="text" name="KARI_CITY_PLAN_TAX" value="100000">
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label>（仮）所得税（円/年）</label>
-                                {{-- もろもろの条件を入れてアプリで計算できるようにする --}}
-                                <div>
-                                    <input type="text" name="KARI_INCOME_TAX" value="100000">
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label>（仮）住民税（円/年）</label>
-                                {{-- もろもろの条件を入れてアプリで計算できるようにする --}}
-                                <div>
-                                    <input type="text" name="KARI_RESIDENT_TAX" value="100000">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card mb-3">
-                            <div class="card-header mb-3">税</div>
+                            <div class="card-header mb-3">保険</div>
 
                             <div class="mb-3">
                                 <label>年間火災保険料（円/年）</label>
                                 <div>
-                                    <input type="number" name="fire_insurance" value="50000">
+                                    <input type="number" name="fire_insurance" value="{{ old("fire_insurance", "30000") }}">
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label>年間地震保険料（円/年）</label>
                                 <div>
-                                    <input type="number" name="erthquake_insurance" value="50000">
+                                    <input type="number" name="erthquake_insurance" value="{{ old("erthquake_insurance", "5000") }}">
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label>年間その他保険料（円/年）</label>
                                 <div>
-                                    <input type="number" name="other_insurance" value="50000">
+                                    <input type="number" name="other_insurance" value="{{ old("other_insurance", "50000") }}">
                                 </div>
                             </div>
                         </div>
@@ -139,44 +85,65 @@
                             <div class="card-header mb-3">その他</div>
 
                             <div class="mb-3">
-                                <label>個別修繕費（円）※頻度は以下で指定</label>
+                                <label>個別修繕費（円/回）</label>
                                 <div>
-                                    <input type="number" name="repair_cost" value="10">
+                                    <input type="number" name="repair_cost" value="{{ old("repair_cost", "50000") }}">
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label>上記が発生する頻度</label>
+                                <label>個別修繕開始年</label>
                                 <div>
-                                    <input type="number" name="repair_frequency" value="3">
+                                    <input type="number" name="repair_start" value="{{ old("repair_cost_start", "2019") }}">
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label>立ち退き費用（万円）※頻度は以下で指定</label>
+                                <label>個別修繕の頻度</label>
                                 <div>
-                                    <input type="number" name="eviction_cost" value="50">
+                                    <input type="number" name="repair_frequency" value="{{ old("repair_frequency", "3") }}">
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label>立ち退きが発生する頻度</label>
+                                <label>立ち退き費用（円/回）</label>
                                 <div>
-                                    <input type="number" name="eviction_frequency" value="1">
+                                    <input type="number" name="eviction_cost" value="{{ old("eviction_cost", "50000") }}">
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label>その他（円）※頻度は以下で指定</label>
+                                <label>立ち退き開始年</label>
                                 <div>
-                                    <input type="number" name="other_cost" value="100000">
+                                    <input type="number" name="eviction_start" value="{{ old("eviction_start", "2019") }}">
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label>その他が発生する頻度</label>
+                                <label>立ち退きの頻度</label>
                                 <div>
-                                    <input type="number" name="other_frequency" value="1">
+                                    <input type="number" name="eviction_frequency" value="{{ old("eviction_frequency", "3") }}">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>その他（円/回）</label>
+                                <div>
+                                    <input type="number" name="other_cost" value="{{ old("other_cost", "50000") }}">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>その他開始年</label>
+                                <div>
+                                    <input type="number" name="other_start" value="{{ old("other_start", "2019") }}">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>その他の頻度</label>
+                                <div>
+                                    <input type="number" name="other_frequency" value="{{ old("other_frequency", "3") }}">
                                 </div>
                             </div>
                         </div>

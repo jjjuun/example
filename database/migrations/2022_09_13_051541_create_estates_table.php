@@ -23,16 +23,20 @@ return new class extends Migration
             $table->string('Municipality')->nullable();
             $table->string('DistrictName')->nullable();
             $table->string('FloorPlan')->nullable();
-            $table->string('BuildingYear')->nullable();
+            $table->string('Structure')->nullable();
+            $table->integer('BuildingYear')->nullable();
+            $table->integer('GetYear')->nullable();
             $table->string('status')->nullable()->default("検討中");
             $table->string('detail')->nullable()->default("ここに詳細を記入してください");
             $table->integer('DB_status')->default(1);
             $table->integer('BuyPrice')->nullable();
             $table->integer('property_income')->nullable();//家賃収入
             $table->integer('property_management_cost')->nullable();//管理費
-            $table->integer('perperty_maintenance_cost')->nullable();//修繕積立費
-            $table->integer('KARI_PROPERTY_TAX')->nullable();//固定資産税
-            $table->integer('KARI_CITY_PLAN_TAX')->nullable();//都市計画税
+            $table->integer('property_maintenance_cost')->nullable();//修繕積立費
+            $table->integer('property_tax')->nullable();//固定資産税
+            $table->integer('city_plan_tax')->nullable();//都市計画税
+            $table->integer('property_std_land_price')->nullable();//固定資産標準額（土地）
+            $table->integer('property_std_house_price')->nullable();//固定資産標準額（家屋）
         });
     }
 

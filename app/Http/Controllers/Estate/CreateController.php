@@ -174,16 +174,17 @@ class CreateController extends Controller
         $Municipality = $input["Municipality"];
         $DistrictName = $input["DistrictName"];
         $FloorPlan = $input["FloorPlan"];
+        $Structure = $input["Structure"];
         $BuildingYear = $input["BuildingYear"];
+        $GetYear = $input["GetYear"];
         $BuyPrice = $input["BuyPrice"];
         $property_income = $input["property_income"];//家賃収入
         $property_management_cost = $input["property_management_cost"];//管理費
-        $perperty_maintenance_cost = $input["perperty_maintenance_cost"];//修繕積立費
-
-        // 固定資産税と都市計画税はBuyPriceから推算する。
-        // 今は、仮で100,000円とする。
-        $KARI_PROPERTY_TAX = 100000;//固定資産税
-        $KARI_CITY_PLAN_TAX = 100000;//都市計画税
+        $property_maintenance_cost = $input["property_maintenance_cost"];//修繕積立費
+        $property_tax = $input["property_tax"];//固定資産税
+        $city_plan_tax = $input["city_plan_tax"];//都市計画税
+        $property_std_land_price = $input["property_std_land_price"];//固定資産標準額（土地）
+        $property_std_house_price = $input["property_std_house_price"];//固定資産標準額（家屋）
 
         $estate = new Estate();
         $estate->user_id = $user_id;
@@ -193,13 +194,17 @@ class CreateController extends Controller
         $estate->Municipality = $Municipality;
         $estate->DistrictName = $DistrictName;
         $estate->FloorPlan = $FloorPlan;
+        $estate->Structure = $Structure;
         $estate->BuildingYear = $BuildingYear;
+        $estate->GetYear = $GetYear;
         $estate->BuyPrice = $BuyPrice;
         $estate->property_income = $property_income;
         $estate->property_management_cost = $property_management_cost;
-        $estate->perperty_maintenance_cost = $perperty_maintenance_cost;
-        $estate->KARI_PROPERTY_TAX = $KARI_PROPERTY_TAX;
-        $estate->KARI_CITY_PLAN_TAX = $KARI_CITY_PLAN_TAX;
+        $estate->property_maintenance_cost = $property_maintenance_cost;
+        $estate->property_tax = $property_tax;
+        $estate->city_plan_tax = $city_plan_tax;
+        $estate->property_std_land_price = $property_std_land_price;
+        $estate->property_std_house_price = $property_std_house_price;
         $estate->save();
 
         $request->session()->forget("estate_input");
